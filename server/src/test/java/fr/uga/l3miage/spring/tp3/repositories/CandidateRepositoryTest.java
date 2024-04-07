@@ -102,7 +102,44 @@ public class CandidateRepositoryTest {
 
         assertThat(candidateEntities).hasSize(1);
         assertThat(candidateEntities.stream().findFirst().get().getBirthDate()).isEqualTo(LocalDate.of(1990,10,21));
-
     }
 
+    @Test
+    void testFindAllByHasExtraTimeFalseAndBirthDateBefore() {
+    // Set<CandidateEntity> findAllByHasExtraTimeFalseAndBirthDateBefore(LocalDate localDate);
+        CandidateEntity candidateEntity = CandidateEntity.builder()
+                .email("magnuscarlsen@jesuisunmail.com")
+                .birthDate(LocalDate.of(1990,11,30))
+                .hasExtraTime(false)
+                .build();
+
+
+        CandidateEntity candidateEntity2 = CandidateEntity.builder()
+                .email("mvl@jesuisunmail.com")
+                .birthDate(LocalDate.of(1990,10,21))
+                .hasExtraTime(true)
+                .build();
+
+        CandidateEntity candidateEntity3 = CandidateEntity.builder()
+                .email("alirezafirouzja@jesuisunmail.com")
+                .birthDate(LocalDate.of(2003,06,21))
+                .hasExtraTime(false)
+                .build();
+
+        CandidateEntity candidateEntity4 = CandidateEntity.builder()
+                .email("dingliren@jesuisunmail.com")
+                .birthDate(LocalDate.of(1992,10,24))
+                .hasExtraTime(false)
+                .build();
+
+        candidateRepository.save(candidateEntity);
+        candidateRepository.save(candidateEntity2);
+        candidateRepository.save(candidateEntity3);
+        candidateRepository.save(candidateEntity4);
+
+        Set<CandidateEntity> candidateEntities = candidateRepository.findAllByHasExtraTimeFalseAndBirthDateBefore(LocalDate.of(2000,01,01));
+
+        assertThat(candidateEntities).hasSize(2);
+        assertThat(candidateEntities.stream().findFirst().get().getBirthDate()).isEqualTo(LocalDate.of(1990,11,30));
+    }
 }
