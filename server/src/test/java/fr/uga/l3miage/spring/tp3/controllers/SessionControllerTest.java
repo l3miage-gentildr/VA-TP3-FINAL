@@ -45,14 +45,24 @@ public class SessionControllerTest {
     //public EcosSessionEntity createSession(EcosSessionEntity entity)
         final HttpHeaders headers = new HttpHeaders();
 
-        final SessionCreationRequest sessionCreationRequest = SessionCreationRequest.builder()
+        SessionProgrammationStepCreationRequest sessionProgrammationStepCreationRequest1 = SessionProgrammationStepCreationRequest.builder()
+                .code("1")
+                .description("step1")
+                .build();
+
+        SessionProgrammationCreationRequest sessionProgrammationCreationRequest = SessionProgrammationCreationRequest.builder()
+                .steps(Set.of(sessionProgrammationStepCreationRequest1))
+                .build();
+
+        SessionCreationRequest sessionCreationRequest = SessionCreationRequest.builder()
                 .name("session1")
                 .startDate(LocalDateTime.now())
                 .endDate(LocalDateTime.now().plusDays(1))
-                .examsId(Set.of())
+                .examsId(Set.of(1L, 2L))
+                .ecosSessionProgrammation(sessionProgrammationCreationRequest)
                 .build();
 
-        ResponseEntity<SessionResponse> response = testRestTemplate.exchange("/api/sessions/create", HttpMethod.POST, new HttpEntity<>(sessionCreationRequest, headers), SessionResponse.class);
+        ResponseEntity<SessionResponse> response = testRestTemplate.exchange("/api/sessions/create", HttpMethod.POST, new HttpEntity<SessionCreationRequest>(sessionCreationRequest, headers), SessionResponse.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
