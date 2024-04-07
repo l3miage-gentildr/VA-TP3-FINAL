@@ -62,8 +62,8 @@ public class SessionControllerTest {
                 .ecosSessionProgrammation(sessionProgrammationCreationRequest)
                 .build();
 
-        ResponseEntity<SessionResponse> response = testRestTemplate.exchange("/api/sessions/create", HttpMethod.POST, new HttpEntity<SessionCreationRequest>(sessionCreationRequest, headers), SessionResponse.class);
+        ResponseEntity<String> response = testRestTemplate.exchange("/api/sessions/create", HttpMethod.POST, new HttpEntity<>(sessionCreationRequest, headers), String.class);
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getStatusCodeValue()).isEqualTo(201);
     }
 }
