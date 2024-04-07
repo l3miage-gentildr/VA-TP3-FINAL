@@ -16,4 +16,9 @@ public class SessionController implements SessionEndpoints {
     public SessionResponse createSession(SessionCreationRequest request) {
         return sessionService.createSession(request);
     }
+
+    @Override
+    public SessionResponse changeSessionState(Long sessionId) {
+        return sessionService.changeSessionState(sessionId);
+    }
 }

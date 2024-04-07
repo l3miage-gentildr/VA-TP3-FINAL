@@ -23,6 +23,11 @@ public interface SessionEndpoints {
     @PostMapping("/create")
     SessionResponse createSession(@RequestBody SessionCreationRequest request);
 
-
+    @Operation(description = "Changer l'état d'une session")
+    @ApiResponse(responseCode = "200", description = "Réussite de la mise à jour de l'état")
+    @ApiResponse(responseCode = "409", description = "La requête entre en conflit avec l'état du serveur", content = @Content(schema = @Schema(implementation = String.class),mediaType = MediaType.APPLICATION_JSON_VALUE))
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/state")
+    SessionResponse changeSessionState(@PathVariable Long sessionId);
 
 }

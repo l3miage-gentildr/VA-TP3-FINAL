@@ -5,6 +5,7 @@ import fr.uga.l3miage.spring.tp3.repositories.EcosSessionProgrammationRepository
 import fr.uga.l3miage.spring.tp3.repositories.EcosSessionProgrammationStepRepository;
 import fr.uga.l3miage.spring.tp3.repositories.EcosSessionRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.SessionException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,5 +20,9 @@ public class SessionComponent {
         ecosSessionProgrammationStepRepository.saveAll(entity.getEcosSessionProgrammationEntity().getEcosSessionProgrammationStepEntities());
         ecosSessionProgrammationRepository.save(entity.getEcosSessionProgrammationEntity());
         return ecosSessionRepository.save(entity);
+    }
+
+    public EcosSessionEntity getId(Long id) throws SessionException{
+        return ecosSessionRepository.findById(id).orElseThrow(() -> new SessionException("Session not found"));
     }
 }
