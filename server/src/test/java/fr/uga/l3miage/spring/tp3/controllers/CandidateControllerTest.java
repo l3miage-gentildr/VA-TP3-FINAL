@@ -76,21 +76,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
     public void getCandidateAverageNotFound(){
         final HttpHeaders headers = new HttpHeaders();
 
-<<<<<<< HEAD
         final Map<String, Object> urlParams = new HashMap<>();
 
         // If we put a String here instead of a long, we will get a BAD_REQUEST error instead of a NOT_FOUND
         urlParams.put("idCandidate", 99999L);
 
         ResponseEntity<NotFoundException> response = testRestTemplate.exchange("/api/candidates/{idCandidate}/average", HttpMethod.GET, new HttpEntity<>(headers), NotFoundException.class, urlParams);
-=======
-        final Map<String, Object> urlParms = new HashMap<>();
 
-        // If we put a String here instead of a long, we will get a BAD_REQUEST error instead of a NOT_FOUND
-        urlParms.put("idCandidate", 99999L);
-
-        ResponseEntity<NotFoundException> response = testRestTemplate.exchange("/api/candidates/{idCandidate}/average", HttpMethod.GET, new HttpEntity<>(headers), NotFoundException.class, urlParms);
->>>>>>> origin/main
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
