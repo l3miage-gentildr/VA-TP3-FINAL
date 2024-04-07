@@ -34,14 +34,13 @@ public class SessionServiceTest {
     @MockBean
     private SessionComponent sessionComponent;
 
-    @MockBean
-    private ExamComponent examComponent;
-
     @SpyBean
     private SessionMapper sessionMapper;
 
     @Test
     public void testCreateSession() {
+    //public EcosSessionEntity createSession(EcosSessionEntity entity)
+
         SessionProgrammationStepCreationRequest sessionProgrammationStepCreationRequest1 = SessionProgrammationStepCreationRequest.builder()
                 .code("1")
                 .description("step1")

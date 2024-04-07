@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @AutoConfigureTestDatabase
 @AutoConfigureWebClient
@@ -83,7 +85,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
         ResponseEntity<NotFoundException> response = testRestTemplate.exchange("/api/candidates/{idCandidate}/average", HttpMethod.GET, new HttpEntity<>(headers), NotFoundException.class, urlParams);
 
-
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
     }
 }
